@@ -5,6 +5,7 @@
   --muted: #69635a;
   --line: rgba(9, 9, 9, 0.14);
   --accent: #d71920;
+  --brand-blue: #322e78;
   --radius: 8px;
   --gutter: clamp(1rem, 4vw, 4.5rem);
 }
@@ -43,6 +44,16 @@ button:focus-visible {
   color: var(--white);
 }
 
+.chapter-blue {
+  --line: rgba(255, 255, 255, 0.24);
+  background: var(--brand-blue);
+  color: var(--white);
+}
+
+.chapter-blue a:focus-visible {
+  outline-color: var(--white);
+}
+
 .section-pad {
   padding: clamp(5rem, 11vw, 11rem) var(--gutter);
 }
@@ -70,6 +81,11 @@ button:focus-visible {
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.chapter-blue .eyebrow,
+.chapter-blue .section-kicker {
+  color: var(--white);
 }
 
 .hero h1 {
@@ -134,6 +150,10 @@ button:focus-visible {
   color: var(--ink);
 }
 
+.chapter-blue .button-light {
+  color: var(--brand-blue);
+}
+
 .button-ghost-light {
   border: 1px solid rgba(255, 255, 255, 0.45);
   color: var(--white);
@@ -165,18 +185,6 @@ button:focus-visible {
 .hero-media img,
 .story-media img {
   border-radius: var(--radius);
-}
-
-.hero-media figcaption {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  padding: 0.85rem 1rem;
-  background: rgba(9, 9, 9, 0.72);
-  color: var(--white);
-  border-radius: var(--radius);
-  font-weight: 700;
 }
 
 .split-heading {
@@ -226,7 +234,6 @@ button:focus-visible {
 }
 
 .product-rail span,
-.footer,
 .stats-strip span,
 .people p,
 .offices p {
@@ -284,8 +291,7 @@ button:focus-visible {
 }
 
 .why .split-heading p,
-.digital-card p,
-.clients .section-kicker {
+.digital-card p {
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -300,7 +306,7 @@ button:focus-visible {
 .reason-grid article {
   min-height: 16rem;
   padding: 1.4rem;
-  background: var(--ink);
+  background: var(--brand-blue);
 }
 
 .reason-grid p {
@@ -373,13 +379,24 @@ button:focus-visible {
 
 .people {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1rem, 3vw, 3rem);
   margin-top: clamp(3rem, 6vw, 6rem);
 }
 
 .people article {
+  min-width: 0;
   min-height: 12rem;
+}
+
+.person-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.09;
+  object-fit: contain;
+  background: var(--white);
+  margin-bottom: 1.5rem;
 }
 
 .offices span {
@@ -442,6 +459,8 @@ button:focus-visible {
 }
 
 .clients {
+  background: var(--white);
+  color: var(--ink);
   min-height: 72svh;
   display: flex;
   flex-direction: column;
@@ -475,6 +494,21 @@ button:focus-visible {
   font-weight: 800;
 }
 
+.contact.chapter-blue .offices p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.contact.chapter-blue .offices a {
+  color: var(--white);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+.contact.chapter-blue .offices a:hover {
+  text-decoration-thickness: 2px;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -505,8 +539,11 @@ button:focus-visible {
 
 .reveal-ready [data-reveal].is-visible {
   opacity: 1;
-  clip-path: inset(0 0 0 0 round var(--radius));
   transform: translate3d(0, 0, 0) scale(1);
+}
+
+.reveal-ready [data-reveal="media"].is-visible {
+  clip-path: inset(0 0 0 0 round var(--radius));
 }
 
 @media (max-width: 900px) {
@@ -585,6 +622,12 @@ button:focus-visible {
   .services h2,
   .contact h2 {
     max-width: 16ch;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .people {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

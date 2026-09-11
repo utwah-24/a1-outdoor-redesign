@@ -155,7 +155,7 @@
   }
 }
 
-@media (hover: none), (prefers-reduced-motion: reduce) {
+@media (max-width: 600px), (hover: none), (prefers-reduced-motion: reduce) {
   .fm-preview {
     display: none;
   }

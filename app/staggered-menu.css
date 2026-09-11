@@ -51,6 +51,93 @@
   object-fit: contain;
 }
 
+.sm-desktop-nav {
+  display: none;
+  min-width: 0;
+  pointer-events: auto;
+}
+
+.sm-desktop-list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sm-desktop-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sm-nav-layers,
+.sm-nav-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sm-nav-layer {
+  background: #262262;
+  transform: translateX(101%);
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sm-nav-layer + .sm-nav-layer {
+  background: var(--sm-accent);
+  transition-delay: 45ms;
+}
+
+.sm-desktop-label {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.sm-nav-label-rest {
+  display: block;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sm-nav-label-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.sm-nav-label-reveal > span {
+  display: inline-block;
+  white-space: pre;
+  transform: translateY(135%) rotate(6deg);
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sm-desktop-link:is(:hover, :focus-visible) .sm-nav-layer {
+  transform: translateX(0);
+}
+
+.sm-desktop-link:is(:hover, :focus-visible) .sm-nav-label-rest {
+  transform: translateY(-135%);
+}
+
+.sm-desktop-link:is(:hover, :focus-visible) .sm-nav-label-reveal > span {
+  transform: translateY(0) rotate(0);
+  transition-delay: calc(60ms + var(--sm-letter-index) * 12ms);
+}
+
 .sm-toggle {
   display: grid;
   place-items: center;
@@ -275,6 +362,17 @@
   flex-direction: row-reverse;
 }
 
+@media (min-width: 1024px) {
+  .sm-desktop-nav {
+    display: block;
+  }
+
+  .sm-toggle,
+  .sm-drawer {
+    display: none;
+  }
+}
+
 @media (max-width: 600px) {
   .staggered-menu-wrapper {
     --sm-panel-width: 100%;
@@ -316,7 +414,10 @@
   .sm-toggle,
   .sm-toggle-icon svg,
   .sm-panel-item,
-  .sm-socials-link {
+  .sm-socials-link,
+  .sm-nav-layer,
+  .sm-nav-label-rest,
+  .sm-nav-label-reveal > span {
     transition: none;
   }
 }

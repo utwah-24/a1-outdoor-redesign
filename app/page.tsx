@@ -63,9 +63,27 @@ const services = [
 ];
 
 const team = [
-  ["Sarah Koola", "Managing Director"],
-  ["Chipasha Musokotwane", "General Manager Zambia"],
-  ["Catherine Thande", "General Manager Kenya"],
+  {
+    name: "Sarah Koola",
+    title: "Managing Director",
+    image: "/assets/sarah-koola.png",
+    width: 714,
+    height: 652,
+  },
+  {
+    name: "Chipasha Musokotwane",
+    title: "General Manager Zambia",
+    image: "/assets/chipasha-musokotwane.png",
+    width: 706,
+    height: 648,
+  },
+  {
+    name: "Catherine Thande",
+    title: "General Manager Kenya",
+    image: "/assets/catherine-thande.png",
+    width: 710,
+    height: 650,
+  },
 ];
 
 const offices = [
@@ -119,7 +137,7 @@ export default function Home() {
       />
 
       <main id="top">
-        <section className="hero chapter-dark" aria-labelledby="hero-title">
+        <section className="hero chapter-blue" aria-labelledby="hero-title">
           <div className="hero-copy" data-reveal="rise">
             <p className="eyebrow">Outdoor media across Tanzania, Kenya and Zambia</p>
             <h1 id="hero-title">Brands seen where cities move.</h1>
@@ -143,7 +161,6 @@ export default function Home() {
               priority
               sizes="(max-width: 900px) 100vw, 42vw"
             />
-            <figcaption>Billboards. Digital screens. Street furniture. Mobile signs.</figcaption>
           </figure>
         </section>
 
@@ -212,7 +229,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="why chapter-dark section-pad" aria-labelledby="why-title">
+        <section className="why chapter-blue section-pad" aria-labelledby="why-title">
           <div className="split-heading" data-reveal="rise">
             <h2 id="why-title">Why outdoor advertising?</h2>
             <p>Reach people repeatedly, in motion, and in context without paying for every extra impression.</p>
@@ -236,7 +253,7 @@ export default function Home() {
             <p className="lead">
               We provide free Out.Of-Home planning, artwork design, and material production logistics management.
             </p>
-            <FlowingMenu items={services} />
+            <FlowingMenu items={services} marqueeBgColor="var(--brand-blue)" />
           </div>
         </section>
 
@@ -272,8 +289,16 @@ export default function Home() {
             </p>
           </div>
           <div className="people">
-            {team.map(([name, title]) => (
+            {team.map(({ name, title, image, width, height }) => (
               <article key={name} data-reveal="rise">
+                <Image
+                  className="person-portrait"
+                  src={image}
+                  alt={`Portrait of ${name}`}
+                  width={width}
+                  height={height}
+                  sizes="(max-width: 600px) 92vw, (max-width: 900px) 44vw, 30vw"
+                />
                 <h3>{name}</h3>
                 <p>{title}</p>
               </article>
@@ -319,16 +344,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="clients chapter-dark section-pad" aria-labelledby="clients-title">
+        <section className="clients section-pad" aria-labelledby="clients-title">
           <p className="section-kicker" data-reveal="rise">Our valued clients</p>
           <h2 id="clients-title" data-reveal="rise">Built for brands that need to be remembered in public.</h2>
         </section>
 
-        <section className="contact section-pad" id="contact" aria-labelledby="contact-title">
+        <section className="contact chapter-blue section-pad" id="contact" aria-labelledby="contact-title">
           <div className="contact-lead" data-reveal="rise">
             <p className="section-kicker">Contact</p>
             <h2 id="contact-title">Put your campaign on the map.</h2>
-            <a className="button button-dark" href="mailto:info@a1outdoor.co.tz">
+            <a className="button button-light" href="mailto:info@a1outdoor.co.tz">
               info@a1outdoor.co.tz
             </a>
           </div>
@@ -345,7 +370,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="footer">
+      <footer className="footer chapter-blue">
         <a href="#top">Back to top</a>
         <p>Copyright © 2026 A1 Outdoor</p>
       </footer>

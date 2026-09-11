@@ -78,6 +78,18 @@ export default function StaggeredMenu({
     return () => window.removeEventListener("scroll", updateScroll);
   }, []);
 
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const handleDesktop = () => {
+      if (!desktop.matches || !rootRef.current?.hasAttribute("data-open")) return;
+      timelineRef.current?.progress(0).pause();
+      gsap.set(drawerRef.current, { autoAlpha: 0 });
+      closeMenu();
+    };
+    desktop.addEventListener("change", handleDesktop);
+    return () => desktop.removeEventListener("change", handleDesktop);
+  }, [closeMenu]);
+
   useLayoutEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updateMotion = () => {
@@ -186,7 +198,10 @@ export default function StaggeredMenu({
       background.forEach((element, index) => { element.inert = previousInert[index]; });
       document.body.style.overflow = previousOverflow;
       document.documentElement.style.overflow = previousRootOverflow;
-      toggle.focus({ preventScroll: true });
+      const focusTarget = window.matchMedia("(min-width: 1024px)").matches
+        ? root.querySelector<HTMLElement>(".sm-desktop-link")
+        : toggle;
+      focusTarget?.focus({ preventScroll: true });
     };
   }, [open, closeMenu]);
 
@@ -215,6 +230,28 @@ export default function StaggeredMenu({
         <a className="sm-logo" href="#top" aria-label="A1 Outdoor home" onClick={closeMenu} inert={open}>
           <Image src={logoUrl} alt="A1 Outdoor" className="sm-logo-img" width={400} height={167} priority unoptimized />
         </a>
+        <nav className="sm-desktop-nav" aria-label="Main navigation" inert={open}>
+          <ul className="sm-desktop-list">
+            {items.map((item) => (
+              <li key={item.label}>
+                <a className="sm-desktop-link" href={item.link} aria-label={item.ariaLabel}>
+                  <span className="sm-nav-layers" aria-hidden="true">
+                    <span className="sm-nav-layer" />
+                    <span className="sm-nav-layer" />
+                  </span>
+                  <span className="sm-desktop-label" aria-hidden="true">
+                    <span className="sm-nav-label-rest">{item.label}</span>
+                    <span className="sm-nav-label-reveal">
+                      {Array.from(item.label).map((letter, index) => (
+                        <span key={index} style={{ "--sm-letter-index": index } as CSSProperties}>{letter}</span>
+                      ))}
+                    </span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <button
           ref={toggleRef}
           className="sm-toggle"

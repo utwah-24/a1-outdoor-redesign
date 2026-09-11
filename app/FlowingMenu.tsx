@@ -67,7 +67,7 @@ function MenuItem({ item, speed }: { item: FlowingMenuItem; speed: number }) {
     const part = track?.querySelector<HTMLElement>(".fm-part");
     if (!band || !track || !part) return;
     let disposed = false;
-    const staticMedia = window.matchMedia("(prefers-reduced-motion: reduce), (hover: none)");
+    const staticMedia = window.matchMedia("(max-width: 600px), (prefers-reduced-motion: reduce), (hover: none)");
     staticRef.current = staticMedia.matches;
 
     const context = gsap.context(() => {
