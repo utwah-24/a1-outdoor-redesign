@@ -1,5 +1,6 @@
 import Image from "next/image";
 import StaggeredMenu from "./StaggeredMenu";
+import FlowingMenu from "./FlowingMenu";
 
 const products = [
   {
@@ -38,9 +39,27 @@ const reasons = [
 ];
 
 const services = [
-  ["Graphic design", "Make your brand stand out with compelling visuals."],
-  ["Video animation", "Captivate audiences with dynamic visual effects."],
-  ["Media planning", "Target your prime audience with our experienced media strategists."],
+  {
+    text: "Graphic design",
+    description: "Make your brand stand out with compelling visuals.",
+    image: "/assets/graphic-design.png",
+    imageAlt: "Graphic design workspace with creative software on a tablet",
+    link: "#contact",
+  },
+  {
+    text: "Video animation",
+    description: "Captivate audiences with dynamic visual effects.",
+    image: "/assets/video-animation.png",
+    imageAlt: "Video editing timeline with footage and audio tracks",
+    link: "#contact",
+  },
+  {
+    text: "Media planning",
+    description: "Target your prime audience with our experienced media strategists.",
+    image: "/assets/media-planning.png",
+    imageAlt: "Weekly social media content plan on a whiteboard",
+    link: "#contact",
+  },
 ];
 
 const team = [
@@ -217,12 +236,7 @@ export default function Home() {
             <p className="lead">
               We provide free Out.Of-Home planning, artwork design, and material production logistics management.
             </p>
-            {services.map(([title, body]) => (
-              <article key={title}>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </article>
-            ))}
+            <FlowingMenu items={services} />
           </div>
         </section>
 

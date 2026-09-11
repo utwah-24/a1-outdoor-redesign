@@ -315,6 +315,7 @@ button:focus-visible {
 
 .service-stack {
   display: grid;
+  align-content: start;
   gap: 1.3rem;
 }
 
@@ -324,7 +325,6 @@ button:focus-visible {
   line-height: 1.15;
 }
 
-.service-stack article,
 .people article,
 .offices article {
   border-top: 1px solid var(--line);
